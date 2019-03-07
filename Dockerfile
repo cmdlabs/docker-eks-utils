@@ -1,4 +1,4 @@
-FROM alpine:3.9 
+FROM alpine:3.9
 
 #Versions
 ENV KUBECTL_VERSION="1.11.5/2018-12-06"
@@ -9,9 +9,8 @@ ENV HELM_DIFF_VERSION="v2.11.0+3"
 ENV KUBECTX_VERSION="0.6.3"
 
 #Install Packages
-RUN apk add --update --no-cache bash bash-completion curl git groff make ca-certificates less jq python3 fzf ncurses coreutils gettext && \
-    apk add --virtual libintl && \
-    cp /usr/bin/envsubst /usr/local/bin/envsubst 
+RUN apk add --update --no-cache bash bash-completion curl git groff make ca-certificates less jq python3 fzf ncurses coreutils gettext-dev
+    
 
 #kubectl
 RUN curl -L https://amazon-eks.s3-us-west-2.amazonaws.com/${KUBECTL_VERSION}/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl && \
