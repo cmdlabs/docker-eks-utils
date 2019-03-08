@@ -44,8 +44,8 @@ RUN curl -L https://github.com/ahmetb/kubectx/archive/v${KUBECTX_VERSION}.tar.gz
     rm -rf /tmp/kubectx.tar.gz
 
 #velero
-RUN curl -L https://github.com/heptio/velero/releases/download/v${VELERO_VERSION}velero-v{VELERO_VERSION}-linux-amd64.tar.gz -o /tmp/velero.tar.gz && \
-    tar -xvz /tmp/velero.tar.gz && \
+RUN curl -L https://github.com/heptio/velero/releases/download/v${VELERO_VERSION}/velero-v${VELERO_VERSION}-linux-amd64.tar.gz -o /tmp/velero.tar.gz && \
+    tar -xvzf /tmp/velero.tar.gz -C /tmp && \
     mv /tmp/velero /usr/local/bin/velero && \
     chmod +x /usr/local/bin/velero && \
     rm -rf /tmp/config 
