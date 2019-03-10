@@ -7,10 +7,10 @@ ENV HELM_VERSION="2.12.3"
 ENV HELM_TILLER_VERSION="0.6.7"
 ENV HELM_DIFF_VERSION="v2.11.0+3"
 ENV KUBECTX_VERSION="0.6.3"
+ENV VELERO_VERSION="0.11.0"
 
 #Install Packages
 RUN apk add --update --no-cache bash bash-completion curl git groff make ca-certificates less jq python3 fzf ncurses coreutils gettext-dev
-    
 
 #kubectl
 RUN curl -L https://amazon-eks.s3-us-west-2.amazonaws.com/${KUBECTL_VERSION}/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl && \
@@ -31,7 +31,7 @@ RUN curl -L https://storage.googleapis.com/kubernetes-helm/helm-v${HELM_VERSION}
 #aws-cli
 RUN pip3 install awscli==${AWS_VERSION}
 
-#kubectx - kubectx-0.6.3
+#kubectx
 RUN curl -L https://github.com/ahmetb/kubectx/archive/v${KUBECTX_VERSION}.tar.gz -o /tmp/kubectx.tar.gz && \
     tar -xvzf /tmp/kubectx.tar.gz -C /tmp && \
     mv /tmp/kubectx-${KUBECTX_VERSION}/kubectx /usr/local/bin/kubectx && \  
@@ -39,9 +39,16 @@ RUN curl -L https://github.com/ahmetb/kubectx/archive/v${KUBECTX_VERSION}.tar.gz
     chmod +x /usr/local/bin/kubectx && \  
     chmod +x /usr/local/bin/kubens && \  
     mv /tmp/kubectx-${KUBECTX_VERSION}/completion/kubectx.bash /usr/share/bash-completion/completions/kubectx.bash && \  
-    mv /tmp/kubectx-${KUBECTX_VERSION}/completion/kubens.bash /usr/share/bash-completion/completions/kubens.bash && \  
+    mv /tmp/kubectx-${KUBECTX_VERSION}/completion/kubens.bash /usr/share/bash-completion/completions/kubens.bash && \
     rm -rf /tmp/kubectx-${KUBECTX_VERSION} && \  
     rm -rf /tmp/kubectx.tar.gz
+
+#velero
+RUN curl -L https://github.com/heptio/velero/releases/download/v${VELERO_VERSION}/velero-v${VELERO_VERSION}-linux-amd64.tar.gz -o /tmp/velero.tar.gz && \
+    tar -xvzf /tmp/velero.tar.gz -C /tmp && \
+    mv /tmp/velero /usr/local/bin/velero && \
+    chmod +x /usr/local/bin/velero && \
+    rm -rf /tmp/config 
 
 #Shell setup
 COPY scripts/aws-ps1.sh /root/.aws-ps1.sh
