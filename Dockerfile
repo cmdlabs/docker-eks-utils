@@ -25,8 +25,6 @@ RUN curl -L https://storage.googleapis.com/kubernetes-release/release/v1.12.7/bi
     chmod +x /usr/local/bin/kubectl && \
     chmod +x /usr/local/bin/aws-iam-authenticator   
 
-https://storage.googleapis.com/kubernetes-release/release/v1.12.7/bin/linux/amd64/kubectl
-
 #helm
 RUN curl -L https://storage.googleapis.com/kubernetes-helm/helm-v${HELM_VERSION}-linux-amd64.tar.gz | tar -xvz && \
     mv linux-amd64/helm /usr/local/bin/helm && \
