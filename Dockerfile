@@ -13,10 +13,19 @@ ENV VELERO_VERSION="0.11.0"
 RUN apk add --update --no-cache bash bash-completion curl git groff make ca-certificates less jq python3 fzf ncurses coreutils gettext-dev
 
 #kubectl
-RUN curl -L https://amazon-eks.s3-us-west-2.amazonaws.com/${KUBECTL_VERSION}/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl && \
+#Amazon have missed uploading kubectl 1.12.7 to the S3 bucket. Will use official repository until they fix it.
+
+# RUN curl -L https://amazon-eks.s3-us-west-2.amazonaws.com/${KUBECTL_VERSION}/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl && \
+#     curl -L https://amazon-eks.s3-us-west-2.amazonaws.com/${KUBECTL_VERSION}/bin/linux/amd64/aws-iam-authenticator -o /usr/local/bin/aws-iam-authenticator && \
+#     chmod +x /usr/local/bin/kubectl && \
+#     chmod +x /usr/local/bin/aws-iam-authenticator    
+
+RUN curl -L https://storage.googleapis.com/kubernetes-release/release/v1.12.7/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl && \
     curl -L https://amazon-eks.s3-us-west-2.amazonaws.com/${KUBECTL_VERSION}/bin/linux/amd64/aws-iam-authenticator -o /usr/local/bin/aws-iam-authenticator && \
     chmod +x /usr/local/bin/kubectl && \
-    chmod +x /usr/local/bin/aws-iam-authenticator    
+    chmod +x /usr/local/bin/aws-iam-authenticator   
+
+https://storage.googleapis.com/kubernetes-release/release/v1.12.7/bin/linux/amd64/kubectl
 
 #helm
 RUN curl -L https://storage.googleapis.com/kubernetes-helm/helm-v${HELM_VERSION}-linux-amd64.tar.gz | tar -xvz && \
