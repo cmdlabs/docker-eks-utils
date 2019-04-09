@@ -2,8 +2,8 @@ FROM alpine:3.9
 
 #Versions
 ENV KUBECTL_VERSION="1.12.7/2019-03-27"
-ENV AWS_VERSION="1.16.111"
-ENV HELM_VERSION="2.12.3"
+ENV AWS_VERSION="1.16.140"
+ENV HELM_VERSION="2.13.1"
 ENV HELM_TILLER_VERSION="0.6.7"
 ENV HELM_DIFF_VERSION="v2.11.0+3"
 ENV KUBECTX_VERSION="0.6.3"
@@ -26,14 +26,15 @@ RUN curl -L https://storage.googleapis.com/kubernetes-release/release/v1.12.7/bi
     chmod +x /usr/local/bin/aws-iam-authenticator   
 
 #helm
-RUN curl -L https://storage.googleapis.com/kubernetes-helm/helm-v${HELM_VERSION}-linux-amd64.tar.gz | tar -xvz && \
-    mv linux-amd64/helm /usr/local/bin/helm && \
+RUN curl -L https://storage.googleapis.com/kubernetes-helm/helm-v${HELM_VERSION}-linux-amd64.tar.gz -o /tmp/helm.tar.gz && \
+    tar -xvzf /tmp/helm.tar.gz -C /tmp && \
+    mv /tmp/linux-amd64/helm /usr/local/bin/helm && \
     chmod +x /usr/local/bin/helm && \
     helm init -c && \
     helm plugin install https://github.com/rimusz/helm-tiller --version ${HELM_TILLER_VERSION}  && \
     helm plugin install https://github.com/databus23/helm-diff --version ${HELM_DIFF_VERSION} && \
     helm repo add incubator http://storage.googleapis.com/kubernetes-charts-incubator && \
-    rm -rf linux-amd64
+    rm -rf /tmp/*
 
 #aws-cli
 RUN pip3 install awscli==${AWS_VERSION}
@@ -47,15 +48,14 @@ RUN curl -L https://github.com/ahmetb/kubectx/archive/v${KUBECTX_VERSION}.tar.gz
     chmod +x /usr/local/bin/kubens && \  
     mv /tmp/kubectx-${KUBECTX_VERSION}/completion/kubectx.bash /usr/share/bash-completion/completions/kubectx.bash && \  
     mv /tmp/kubectx-${KUBECTX_VERSION}/completion/kubens.bash /usr/share/bash-completion/completions/kubens.bash && \
-    rm -rf /tmp/kubectx-${KUBECTX_VERSION} && \  
-    rm -rf /tmp/kubectx.tar.gz
+    rm -rf /tmp/*
 
 #velero
 RUN curl -L https://github.com/heptio/velero/releases/download/v${VELERO_VERSION}/velero-v${VELERO_VERSION}-linux-amd64.tar.gz -o /tmp/velero.tar.gz && \
     tar -xvzf /tmp/velero.tar.gz -C /tmp && \
     mv /tmp/velero /usr/local/bin/velero && \
     chmod +x /usr/local/bin/velero && \
-    rm -rf /tmp/config 
+    rm -rf /tmp/*
 
 #Shell setup
 COPY scripts/aws-ps1.sh /root/.aws-ps1.sh
