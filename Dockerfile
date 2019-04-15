@@ -13,23 +13,18 @@ ENV VELERO_VERSION="0.11.0"
 RUN apk add --update --no-cache bash bash-completion curl git groff make ca-certificates less jq python3 fzf ncurses coreutils gettext-dev
 
 #kubectl
-#Amazon have missed uploading kubectl 1.12.7 to the S3 bucket. Will use official repository until they fix it.
-
-# RUN curl -L https://amazon-eks.s3-us-west-2.amazonaws.com/${KUBECTL_VERSION}/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl && \
-#     curl -L https://amazon-eks.s3-us-west-2.amazonaws.com/${KUBECTL_VERSION}/bin/linux/amd64/aws-iam-authenticator -o /usr/local/bin/aws-iam-authenticator && \
-#     chmod +x /usr/local/bin/kubectl && \
-#     chmod +x /usr/local/bin/aws-iam-authenticator    
-
-RUN curl -L https://storage.googleapis.com/kubernetes-release/release/v1.12.7/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl && \
+RUN curl -L https://amazon-eks.s3-us-west-2.amazonaws.com/${KUBECTL_VERSION}/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl && \
     curl -L https://amazon-eks.s3-us-west-2.amazonaws.com/${KUBECTL_VERSION}/bin/linux/amd64/aws-iam-authenticator -o /usr/local/bin/aws-iam-authenticator && \
     chmod +x /usr/local/bin/kubectl && \
-    chmod +x /usr/local/bin/aws-iam-authenticator   
+    chmod +x /usr/local/bin/aws-iam-authenticator
 
 #helm
 RUN curl -L https://storage.googleapis.com/kubernetes-helm/helm-v${HELM_VERSION}-linux-amd64.tar.gz -o /tmp/helm.tar.gz && \
     tar -xvzf /tmp/helm.tar.gz -C /tmp && \
     mv /tmp/linux-amd64/helm /usr/local/bin/helm && \
+    mv /tmp/linux-amd64/tiller /usr/local/bin/tiller && \
     chmod +x /usr/local/bin/helm && \
+    chmod +x /usr/local/bin/tiller && \
     helm init -c && \
     helm plugin install https://github.com/rimusz/helm-tiller --version ${HELM_TILLER_VERSION}  && \
     helm plugin install https://github.com/databus23/helm-diff --version ${HELM_DIFF_VERSION} && \
