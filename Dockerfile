@@ -16,7 +16,7 @@ RUN apk add --update --no-cache bash bash-completion curl git groff make ca-cert
 RUN curl -L https://amazon-eks.s3-us-west-2.amazonaws.com/${KUBECTL_VERSION}/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl && \
     curl -L https://amazon-eks.s3-us-west-2.amazonaws.com/${KUBECTL_VERSION}/bin/linux/amd64/aws-iam-authenticator -o /usr/local/bin/aws-iam-authenticator && \
     chmod +x /usr/local/bin/kubectl && \
-    chmod +x /usr/local/bin/aws-iam-authenticator    
+    chmod +x /usr/local/bin/aws-iam-authenticator
 
 #helm
 RUN curl -L https://storage.googleapis.com/kubernetes-helm/helm-v${HELM_VERSION}-linux-amd64.tar.gz -o /tmp/helm.tar.gz && \
