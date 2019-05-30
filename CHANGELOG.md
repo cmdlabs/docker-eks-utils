@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Updated
 - helm to 2.14.0
 
+## [0.6.1] - 2019-04-15
+### Changed
+- Extract tiller to path to prevent it being downloaded every time.
+
 ## [0.6.0] - 2019-04-09
 ### Updated
 - aws to 1.16.140
