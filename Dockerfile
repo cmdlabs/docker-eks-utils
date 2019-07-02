@@ -1,9 +1,9 @@
 FROM alpine:3.9
 
 #Versions
-ENV KUBECTL_VERSION="1.12.7/2019-03-27"
-ENV AWS_VERSION="1.16.140"
-ENV HELM_VERSION="2.14.0"
+ENV KUBECTL_VERSION="1.13.7/2019-06-11"
+ENV AWS_VERSION="1.16.191"
+ENV HELM_VERSION="2.14.1"
 ENV HELM_TILLER_VERSION="0.6.7"
 ENV HELM_DIFF_VERSION="v2.11.0+3"
 ENV KUBECTX_VERSION="0.6.3"
@@ -37,11 +37,11 @@ RUN pip3 install awscli==${AWS_VERSION}
 #kubectx
 RUN curl -L https://github.com/ahmetb/kubectx/archive/v${KUBECTX_VERSION}.tar.gz -o /tmp/kubectx.tar.gz && \
     tar -xvzf /tmp/kubectx.tar.gz -C /tmp && \
-    mv /tmp/kubectx-${KUBECTX_VERSION}/kubectx /usr/local/bin/kubectx && \  
-    mv /tmp/kubectx-${KUBECTX_VERSION}/kubens /usr/local/bin/kubens && \  
-    chmod +x /usr/local/bin/kubectx && \  
-    chmod +x /usr/local/bin/kubens && \  
-    mv /tmp/kubectx-${KUBECTX_VERSION}/completion/kubectx.bash /usr/share/bash-completion/completions/kubectx.bash && \  
+    mv /tmp/kubectx-${KUBECTX_VERSION}/kubectx /usr/local/bin/kubectx && \
+    mv /tmp/kubectx-${KUBECTX_VERSION}/kubens /usr/local/bin/kubens && \
+    chmod +x /usr/local/bin/kubectx && \
+    chmod +x /usr/local/bin/kubens && \
+    mv /tmp/kubectx-${KUBECTX_VERSION}/completion/kubectx.bash /usr/share/bash-completion/completions/kubectx.bash && \
     mv /tmp/kubectx-${KUBECTX_VERSION}/completion/kubens.bash /usr/share/bash-completion/completions/kubens.bash && \
     rm -rf /tmp/*
 
