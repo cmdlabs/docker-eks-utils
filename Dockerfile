@@ -52,12 +52,6 @@ RUN curl -L https://github.com/heptio/velero/releases/download/v${VELERO_VERSION
     chmod +x /usr/local/bin/velero && \
     rm -rf /tmp/*
 
-#Shell setup
-COPY scripts/aws-ps1.sh /root/.aws-ps1.sh
-COPY scripts/kube-ps1.sh /root/.kube-ps1.sh
-COPY scripts/aws-reauth.sh /root/.aws-reauth.sh
-COPY scripts/.bashrc /root/.bashrc
-
 #General Setup
 RUN mkdir /work
 WORKDIR /work
