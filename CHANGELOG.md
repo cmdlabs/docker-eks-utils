@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.9.0] - 2019-09-19
 ### Removed
 - Removed all shell scripts
+### Added
 - Add README.md
 
 ## [0.8.0] - 2019-07-02
