@@ -1,12 +1,12 @@
 FROM alpine:3.9
 
 #Versions
-ENV KUBECTL_VERSION="1.13.7/2019-06-11"
-ENV AWS_VERSION="1.16.191"
-ENV HELM_VERSION="2.14.1"
-ENV HELM_TILLER_VERSION="0.6.7"
-ENV HELM_DIFF_VERSION="v2.11.0+3"
-ENV KUBECTX_VERSION="0.6.3"
+ENV KUBECTL_VERSION="1.16.3"
+ENV AWS_VERSION="1.16.290"
+ENV HELM_VERSION="2.16.1"
+ENV HELM_TILLER_VERSION="0.9.3"
+ENV HELM_DIFF_VERSION="v2.11.0+5"
+ENV KUBECTX_VERSION="1.2.0"
 ENV VELERO_VERSION="0.11.0"
 
 #Install Packages
@@ -14,9 +14,7 @@ RUN apk add --update --no-cache bash bash-completion curl git groff make ca-cert
 
 #kubectl
 RUN curl -L https://amazon-eks.s3-us-west-2.amazonaws.com/${KUBECTL_VERSION}/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl && \
-    curl -L https://amazon-eks.s3-us-west-2.amazonaws.com/${KUBECTL_VERSION}/bin/linux/amd64/aws-iam-authenticator -o /usr/local/bin/aws-iam-authenticator && \
-    chmod +x /usr/local/bin/kubectl && \
-    chmod +x /usr/local/bin/aws-iam-authenticator
+    chmod +x /usr/local/bin/kubectl
 
 #helm
 RUN curl -L https://storage.googleapis.com/kubernetes-helm/helm-v${HELM_VERSION}-linux-amd64.tar.gz -o /tmp/helm.tar.gz && \
