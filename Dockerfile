@@ -1,4 +1,4 @@
-FROM alpine:3.10
+FROM alpine:3.9
 
 #Versions
 ENV KUBECTL_VERSION="1.16.3"
@@ -46,7 +46,7 @@ RUN curl -L https://github.com/ahmetb/kubectx/archive/v${KUBECTX_VERSION}.tar.gz
 #velero
 RUN curl -L https://github.com/heptio/velero/releases/download/v${VELERO_VERSION}/velero-v${VELERO_VERSION}-linux-amd64.tar.gz -o /tmp/velero.tar.gz && \
     tar -xvzf /tmp/velero.tar.gz -C /tmp && \
-    mv /tmp/velero /usr/local/bin/velero && \
+    mv /tmp/velero-v${VELERO_VERSION}-linux-amd64/velero /usr/local/bin/velero && \
     chmod +x /usr/local/bin/velero && \
     rm -rf /tmp/*
 
