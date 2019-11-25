@@ -6,8 +6,8 @@ ENV AWS_VERSION="1.16.290"
 ENV HELM_VERSION="2.16.1"
 ENV HELM_TILLER_VERSION="0.9.3"
 ENV HELM_DIFF_VERSION="v2.11.0+5"
-ENV KUBECTX_VERSION="1.2.0"
-ENV VELERO_VERSION="0.11.0"
+ENV KUBECTX_VERSION="0.7.1"
+ENV VELERO_VERSION="1.2.0"
 
 #Install Packages
 RUN apk add --update --no-cache bash bash-completion curl git groff make ca-certificates less jq python3 fzf ncurses coreutils gettext-dev
