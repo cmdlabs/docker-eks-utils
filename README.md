@@ -25,7 +25,7 @@ This container can be used with the [3 Musketeers][] pattern:
   * docker-compose.yml
 ```yml
   eks:
-    image: cmdlabs/eks-utils:0.9.0
+    image: cmdlabs/eks-utils:0.10.0
     env_file: .env
     working_dir: /work
     volumes:
