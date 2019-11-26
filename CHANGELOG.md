@@ -5,6 +5,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Updated
  - alpine to 3.10
  - kubectl to 1.14.6
  - helm to 2.16.1
@@ -12,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
  - helm diff to 2.11.0+5
  - kubectx to 0.7.1
  - velero to 1.2.0
+ ### Removed
  - Removed aws-iam-authenticator
 
 ## [0.9.0] - 2019-09-19
