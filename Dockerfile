@@ -11,7 +11,6 @@ ENV VELERO_VERSION="1.2.0"
 
 #Install Packages
 RUN apk add --update --no-cache bash bash-completion curl git groff make ca-certificates less jq python3 fzf ncurses coreutils gettext-dev
-RUN apk --update
 
 #kubectl
 RUN curl -L https://amazon-eks.s3-us-west-2.amazonaws.com/${KUBECTL_VERSION}/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl && \
