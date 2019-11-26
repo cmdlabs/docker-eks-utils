@@ -1,7 +1,7 @@
 FROM alpine:3.10
 
 #Versions
-ENV KUBECTL_VERSION="1.13.7/2019-06-11"
+ENV KUBECTL_VERSION="1.14.6/2019-08-22"
 ENV AWS_VERSION="1.16.290"
 ENV HELM_VERSION="2.16.1"
 ENV HELM_TILLER_VERSION="0.9.3"
@@ -11,6 +11,7 @@ ENV VELERO_VERSION="1.2.0"
 
 #Install Packages
 RUN apk add --update --no-cache bash bash-completion curl git groff make ca-certificates less jq python3 fzf ncurses coreutils gettext-dev
+RUN apk --update
 
 #kubectl
 RUN curl -L https://amazon-eks.s3-us-west-2.amazonaws.com/${KUBECTL_VERSION}/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl && \
