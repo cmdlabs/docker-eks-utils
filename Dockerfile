@@ -3,8 +3,8 @@ FROM alpine:3.10
 #Versions
 ENV KUBECTL_VERSION="1.14.6/2019-08-22"
 ENV AWS_VERSION="1.16.191"
-ENV HELM_VERSION="3.0.0-rc.1"
-ENV HELM_DIFF_VERSION="3.0.0-rc.7"
+ENV HELM_VERSION="3.0.1"
+ENV HELM_DIFF_VERSION="v3.0.0-rc.7"
 
 #Install Packages
 RUN apk add --update --no-cache bash bash-completion curl git make ca-certificates less jq python3 coreutils gettext-dev
