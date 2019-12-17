@@ -8,15 +8,8 @@ https://hub.docker.com/r/cmdlabs/eks-utils
 docker-eks-utils implements a container containing a variety of tools for managing your EKS cluster.
 
   * kubectl
-  * Helm, including the [Tillerless Helm][] plugin
+  * Helm v3
   * awscli
-  * [kubectx][] (including [kubens][])
-  * [velero][]
-
-[Tillerless Helm]: https://github.com/rimusz/helm-tiller
-[kubectx]: https://github.com/ahmetb/kubectx
-[kubens]: https://github.com/ahmetb/kubectx/blob/master/kubens
-[velero]: https://github.com/heptio/velero
 
 ## Usage
 
@@ -24,14 +17,17 @@ This container can be used with the [3 Musketeers][] pattern:
 
   * docker-compose.yml
 ```yml
+version: '3.7'
+services:
   eks:
-    image: cmdlabs/eks-utils:0.10.0
+    image: cmdlabs/eks-utils:1.0.0
     env_file: .env
     working_dir: /work
     volumes:
       - .:/work
       - ~/.kube:/root/.kube
       - ~/.aws:/root/.aws
+      - ~/.helm/repository:/root/.helm/repository
 ```
 
   * Makefile
