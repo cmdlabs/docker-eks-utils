@@ -1,20 +1,65 @@
-VERSION = 1.0.0
-IMAGE_NAME ?= cmdlabs/eks-utils
+IMAGE_NAME ?= cmdlabs/terraform-utils
+
+RELEASE_VERSION = 1.1.0
+BUILD_VERSION ?= testing
+
+ifdef CI_COMMIT_REF_NAME
+	BUILD_VERSION=$(CI_COMMIT_REF_NAME)
+endif
+
+#Workaround for linux not supporting docker.host.internal
+UNAME = $(shell uname)
+ifeq ($(UNAME), Linux)
+	HOSTIP = --add-host=host.docker.internal:$(shell ip route | grep docker0 | awk '{print $$9}')
+endif
+
+login:
+	docker login -u $(DOCKER_HUB_CMDSOLUTIONS_USER) -p $(DOCKER_HUB_CMDSOLUTIONS_PASS)
+PHONY: login
 
 build:
-	docker build -t $(IMAGE_NAME):testing .
+	docker build -t $(IMAGE_NAME):$(BUILD_VERSION) .
 PHONY: build
 
 test:
-	docker-compose -f docker-compose.test.yml up --build --quiet-pull --exit-code-from sut
-	docker-compose -f docker-compose.test.yml down --rmi all
+	docker run --rm --entrypoint=kubectl $(IMAGE_NAME):$(BUILD_VERSION) --help
+	docker run --rm --entrypoint=aws $(IMAGE_NAME):$(BUILD_VERSION) --version
+	docker run --rm --entrypoint=helm $(IMAGE_NAME):$(BUILD_VERSION) --help
+	docker run --rm --entrypoint=helm $(IMAGE_NAME):$(BUILD_VERSION) diff --help
+	@echo "All tests completed successfully"
 PHONY: test
 
-clean:
-	docker-compose -f docker-compose.test.yml down --rmi all 
-PHONY: clean
+scan:
+	docker run --rm -d --name clair-db arminc/clair-db:latest
+	docker run --rm $(HOSTIP) -p 6060:6060 --link clair-db:postgres -d --name clair arminc/clair-local-scan:latest
+	clair-scanner --ip host.docker.internal $(IMAGE_NAME):$(BUILD_VERSION)
+.PHONY: scan
+
+scanClean:
+	docker stop clair-db; true
+	docker stop clair; true
+.PHONY: scanClean
+
+push: login
+	docker push $(IMAGE_NAME):$(BUILD_VERSION)
+.PHONY: push
+
+pushLatest: login
+	docker pull $(IMAGE_NAME):$(BUILD_VERSION)
+	docker tag $(IMAGE_NAME):$(BUILD_VERSION) $(IMAGE_NAME):latest
+	docker push $(IMAGE_NAME):latest
+.PHONY: tagLatest
 
 tag:
-	git tag $(VERSION)
-	git push origin $(VERSION)
+	git tag -a $(RELEASE_VERSION) -m ''
+	git push origin $(RELEASE_VERSION)
 PHONY: tag
+
+publish:
+	git fetch --all
+	git remote add github https://$(GIT_USERNAME):$(GIT_PASSWORD)@github.com/cmdlabs/$(CI_PROJECT_NAME)
+	git checkout master
+	git pull origin master
+	git push --follow-tags github master
+	curl -X POST -H 'Content-type: application/json' --data '{"text":"A new commit has been published to Github\nProject: $(CI_PROJECT_NAME)\nRef: $(CI_COMMIT_REF_NAME)\nDiff: https://github.com/cmdlabs/$(CI_PROJECT_NAME)/commit/$(CI_COMMIT_SHA)"}' $(GIT_PUBLISHING_WEBHOOK)
+PHONY: publish
