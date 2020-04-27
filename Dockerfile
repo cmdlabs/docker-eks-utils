@@ -7,7 +7,7 @@ ENV HELM_VERSION="3.2.0"
 ENV HELM_DIFF_VERSION="3.1.1"
 
 #Install Packages
-RUN apk add --update --no-cache curl git make ca-certificates less jq python3 coreutils gettext-dev
+RUN apk add --update --no-cache bash curl git make ca-certificates less jq python3 coreutils gettext-dev
 
 #kubectl
 RUN curl -sL https://amazon-eks.s3-us-west-2.amazonaws.com/${KUBECTL_VERSION}/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl && \
