@@ -32,7 +32,7 @@ PHONY: test
 scan:
 	docker run --rm -d --name clair-db arminc/clair-db:latest
 	docker run --rm $(HOSTIP) -p 6060:6060 --link clair-db:postgres -d --name clair arminc/clair-local-scan:latest
-	clair-scanner --ip host.docker.internal $(IMAGE_NAME):$(BUILD_VERSION)
+	clair-scanner -w clair-whitelist.yml --ip host.docker.internal $(IMAGE_NAME):$(BUILD_VERSION)
 .PHONY: scan
 
 scanClean:

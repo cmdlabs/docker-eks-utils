@@ -1,0 +1,2 @@
+generalwhitelist:
+  CVE-2016-4074: JQ #False Positive: https://github.com/quay/clair/issues/852
