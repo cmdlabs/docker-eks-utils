@@ -1,14 +1,13 @@
-FROM alpine:3.10
+FROM alpine:3.11
 
 #Versions
-ENV KUBECTL_VERSION="1.14.6/2019-08-22"
-ENV AWS_VERSION="1.16.290"
-ENV AWS_VERSION="1.16.191"
-ENV HELM_VERSION="3.0.1"
-ENV HELM_DIFF_VERSION="3.0.0-rc.7"
+ENV KUBECTL_VERSION="1.15.10/2020-02-22"
+ENV AWS_VERSION="1.18.46"
+ENV HELM_VERSION="3.2.0"
+ENV HELM_DIFF_VERSION="3.1.1"
 
 #Install Packages
-RUN apk add --update --no-cache bash bash-completion curl git make ca-certificates less jq python3 coreutils gettext-dev
+RUN apk add --update --no-cache bash curl git make ca-certificates less jq python3 coreutils gettext-dev
 
 #kubectl
 RUN curl -sL https://amazon-eks.s3-us-west-2.amazonaws.com/${KUBECTL_VERSION}/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl && \
@@ -28,10 +27,7 @@ RUN curl -sL https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz -o /tm
 RUN pip3 install --no-cache-dir awscli==${AWS_VERSION}
 
 #General Setup
-RUN mkdir /work
+RUN mkdir -p /work
 WORKDIR /work
 
-#Inject test script
-COPY run_tests.sh /run_tests.sh
-
-CMD ["/bin/bash"]
+ENTRYPOINT ["kubectl"]

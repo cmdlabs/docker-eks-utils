@@ -1,5 +1,4 @@
 # docker-eks-utils
-[![Docker Cloud Automated build](https://img.shields.io/docker/cloud/automated/cmdlabs/eks-utils.svg)](https://hub.docker.com/r/cmdlabs/eks-utils) [![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/cmdlabs/eks-utils.svg)](https://hub.docker.com/r/cmdlabs/eks-utils/builds)
 
 https://hub.docker.com/r/cmdlabs/eks-utils
 
