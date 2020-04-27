@@ -1,4 +1,4 @@
-IMAGE_NAME ?= cmdlabs/terraform-utils
+IMAGE_NAME ?= cmdlabs/eks-utils
 
 RELEASE_VERSION = 2.0.0
 BUILD_VERSION ?= testing
