@@ -9,6 +9,7 @@ docker-eks-utils implements a container containing a variety of tools for managi
   * kubectl
   * Helm v3
   * awscli
+  * helmfile
 
 ## Usage
 

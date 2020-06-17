@@ -1,6 +1,6 @@
 IMAGE_NAME ?= cmdlabs/eks-utils
 
-RELEASE_VERSION = 2.0.0
+RELEASE_VERSION = 2.1.0
 BUILD_VERSION ?= testing
 
 ifdef CI_COMMIT_REF_NAME
@@ -26,6 +26,9 @@ test:
 	docker run --rm --entrypoint=aws $(IMAGE_NAME):$(BUILD_VERSION) --version
 	docker run --rm --entrypoint=helm $(IMAGE_NAME):$(BUILD_VERSION) --help
 	docker run --rm --entrypoint=helm $(IMAGE_NAME):$(BUILD_VERSION) diff --help
+	docker run --rm --entrypoint=helm $(IMAGE_NAME):$(BUILD_VERSION) s3 --help
+	docker run --rm --entrypoint=helm $(IMAGE_NAME):$(BUILD_VERSION) secrets --help
+	docker run --rm --entrypoint=helmfile $(IMAGE_NAME):$(BUILD_VERSION)  --help
 	@echo "All tests completed successfully"
 PHONY: test
 
