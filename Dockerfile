@@ -9,13 +9,18 @@ ENV HELM_S3_VERSION="0.9.2"
 ENV HELM_SECRETS_VERSION="2.0.2"
 ENV HELM_GIT_VERSION="0.7.0"
 ENV HELMFILE_VERSION="v0.119.0"
+ENV SOPS_VERSION="v3.5.0"
 
 #Install Packages
-RUN apk add --update --no-cache bash curl git make ca-certificates less jq python3 coreutils gettext-dev
+RUN apk add --update --no-cache bash curl git groff make ca-certificates less jq python3 coreutils gettext-dev
 
 #kubectl
 RUN curl -sL https://amazon-eks.s3-us-west-2.amazonaws.com/${KUBECTL_VERSION}/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl && \
     chmod +x /usr/local/bin/kubectl
+
+#sops
+RUN curl -sL https://github.com/mozilla/sops/releases/download/${SOPS_VERSION}/sops-${SOPS_VERSION}.linux > /usr/local/bin/sops && \
+    chmod +x /usr/local/bin/sops
 
 #helm
 RUN curl -sL https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz -o /tmp/helm.tar.gz && \
