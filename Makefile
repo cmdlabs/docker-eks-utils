@@ -1,6 +1,6 @@
 IMAGE_NAME ?= cmdlabs/eks-utils
 
-RELEASE_VERSION = 2.2.1
+RELEASE_VERSION = 2.3.0
 BUILD_VERSION ?= testing
 
 ifdef CI_COMMIT_REF_NAME
