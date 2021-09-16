@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.4.0] - 2021-09-16
+### Added
+- wget
+- yq
+- tree
+
+### Updated
+- helm updated to 3.7.0
+- helm secrets updated to 3.8.3
+- helmfile updated to v0.140.1
+- sops updated to v3.7.1
+- aws cli updated to 1.20.23
+
 ## [2.3.0] - 2021-03-23
 ### Updated
 - Updated kubectl to 1.19
