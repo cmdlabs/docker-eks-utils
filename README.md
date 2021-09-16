@@ -20,7 +20,7 @@ This container can be used with the [3 Musketeers][] pattern:
 version: '3.7'
 services:
   eks:
-    image: cmdlabs/eks-utils:1.0.0
+    image: cmdlabs/eks-utils:2.4.0
     env_file: .env
     working_dir: /work
     volumes:
